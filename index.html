@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard บัญชีเงินกู้ กยศ.</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; background: #0f1b2d; font-family: 'Sarabun', sans-serif; overflow: hidden; }
+    #container { width: 100vw; height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 10px 16px; overflow-y: auto; }
+    #canvas { display: none; cursor: default; }
+
+    #dropzone {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px;
+      background: #0f1b2d; z-index: 20; transition: background 0.2s;
+    }
+    #dropzone.drag-over { background: #0d2040; }
+
+    .drop-card {
+      border: 2px dashed #1e3050; border-radius: 20px;
+      padding: 52px 64px; text-align: center; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s; max-width: 440px; width: 90%;
+    }
+    #dropzone.drag-over .drop-card, .drop-card:hover { border-color: #2d7ef7; background: #162035; }
+
+    .drop-icon { font-size: 56px; line-height: 1; margin-bottom: 16px; }
+    .drop-title { font-size: 20px; color: #e8eaf0; font-weight: 600; margin-bottom: 8px; }
+    .drop-sub { font-size: 13px; color: #4a5568; line-height: 1.6; }
+
+    .drop-btn {
+      margin-top: 24px; padding: 10px 28px; background: #2d7ef7; color: #fff;
+      border: none; border-radius: 8px; font-size: 14px; cursor: pointer;
+      font-family: inherit; transition: background 0.15s;
+    }
+    .drop-btn:hover { background: #4d9fff; }
+
+    #drop-status { font-size: 14px; color: #8896aa; min-height: 22px; }
+    #file-input { display: none; }
+  </style>
+</head>
+<body>
+  <div id="dropzone">
+    <div class="drop-card">
+      <div class="drop-icon">📂</div>
+      <div class="drop-title">ลากไฟล์ Excel มาวางที่นี่</div>
+      <div class="drop-sub">
+        รองรับไฟล์ <strong style="color:#2d7ef7">.xlsx</strong> จาก กยศ.<br/>
+        (ต้องมี sheet: ตารางผ่อนชำระ, statement, recal)
+      </div>
+      <button class="drop-btn" onclick="document.getElementById('file-input').click()">
+        หรือคลิกเลือกไฟล์
+      </button>
+    </div>
+    <div id="drop-status"></div>
+    <input type="file" id="file-input" accept=".xlsx,.xls" />
+  </div>
+
+  <div id="container">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <script type="module" src="./Dashboard.js"></script>
+</body>
+</html>
